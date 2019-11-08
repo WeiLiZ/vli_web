@@ -1,0 +1,10 @@
+
+Usquid:S2629m"7Use the built-in formatting to construct this argument.(ÜŞæ8ÉËÿ§ã-
+msquid:S1192„"NUse already-defined constant 'ERROR_IP' instead of duplicating its value here.(¶ÂÕğ8ÉËÿ§ã-
+ksquid:S1192<"HDefine a constant instead of duplicating this literal "unknown" 3 times.(í¾şèÿÿÿÿÿ8ÉËÿ§ã-
+†squid:S1488"cImmediately return this expression instead of assigning it to the temporary variable "hostAddress".(ÜÑäêüÿÿÿÿ8ÉËÿ§ã-
+Gsquid:S1148‚"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÉËÿ§ã-
+Xsquid:S1118":Add a private constructor to hide the implicit public one.(í´ù×8ÉËÿ§ã-
+vsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(±«›úÿÿÿÿ8ÉËÿ§ã-
+qsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(´­«£8ÉËÿ§ã-
+_squid:S3457m"AFormat specifiers should be used instead of string concatenation.(ÜŞæ8ÉËÿ§ã-

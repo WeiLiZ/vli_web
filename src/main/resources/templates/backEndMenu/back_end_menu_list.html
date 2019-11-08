@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
+<!-- 先引入 Vue -->
+<script src="../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<!-- 引入组件库 -->
+<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+<body>
+<div id="app" v-cloak>
+    <div>
+        <div style="text-align: right;">
+            <el-button type="primary" plain @click="onOpenAddPopup">添加菜单</el-button>
+        </div>
+    </div>
+    <!--表格-->
+    <el-table
+            :data="tableData"
+            style="width: 100%">
+        <el-table-column
+                label="ID"
+                width="120">
+            <template slot-scope="scope">
+                <span>{{ scope.row.id }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+                label="日期"
+                width="200">
+            <template slot-scope="scope">
+                <span>{{ scope.row.createTime }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+                label="菜单名"
+                width="180">
+            <template slot-scope="scope">
+                <span>{{ scope.row.name }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+                label="创建人"
+                width="180">
+            <template slot-scope="scope">
+                <span>{{ scope.row.userName }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+                label="路径"
+                width="200">
+            <template slot-scope="scope">
+                <span>{{ scope.row.site }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="onOpenUpdatePopup(scope.$index, scope.row)">编辑
+                </el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除
+                </el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!--添加&修改 对话框-->
+    <el-dialog :title="popupTitle" :visible.sync="dialogFormVisible">
+        <el-form :model="form">
+            <el-form-item label="菜单名称" label-width="120px">
+                <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="菜单路径" label-width="120px">
+                <el-input v-model="form.site" auto-complete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="closePopup">取 消</el-button>
+            <el-button type="primary" @click="onSubmitForm">确 定</el-button>
+        </div>
+    </el-dialog>
+</div>
+</body>
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            tableData: [{}],
+            dialogFormVisible: false,
+            popupTitle: "",
+            form: {
+                id: "",
+                name: '',
+                site: "",
+            },
+        },
+        methods: {
+            //点击打开添加框
+            onOpenAddPopup() {
+                var _this = this;
+                _this.dialogFormVisible = true;
+                _this.form = {};
+                _this.popupTitle = "添加";
+            },
+            //点击打开修改框
+            onOpenUpdatePopup(index, row) {
+                var _this = this;
+                _this.dialogFormVisible = true;
+                _this.form = row;
+                _this.popupTitle = "修改";
+            },
+            //删除
+            handleDelete(index, row) {
+                let _this = this;
+                _this.$confirm('您确定删除?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'error'
+                }).then(function () {
+                    $.ajax({
+                        url: '/vli/vli/back/end/menu/delete',//地址
+                        dataType: 'json',//数据类型
+                        type: 'POST',//类型
+                        data: {
+                            id: row.id
+                        },
+                        success: function (res) {
+                            if (res.code == 1) {
+                                _this.$message.success('删除成功');
+                                _this.findBackendMenu();
+                            }
+                        }
+                    })
+                })
+            },
+            //查询
+            findBackendMenu() {
+                var _this = this;
+                $.ajax({
+                    url: '/vli/vli/back/end/menu/list',//地址
+                    dataType: 'json',//数据类型
+                    type: 'POST',//类型
+                    //请求成功
+                    success: function (res) {
+                        if (res.code == 1) {
+                            _this.tableData = res.data.data;
+                        } else {
+                            _this.$message.error(res.msg);
+                        }
+                    }
+                })
+            },
+            //提交添加和修改的表单
+            onSubmitForm() {
+                let _this = this;
+                if (_this.form.id == null || _this.form.id == '') {
+                    $.ajax({
+                        url: "/vli/vli/back/end/menu/add",
+                        dataType: 'json',//数据类型
+                        type: 'POST',//类型
+                        data: _this.form,//
+                        //请求成功
+                        success: function (res) {
+                            if (res.code == 1) {
+                                _this.$message.success(res.msg);
+                                _this.form = {};
+                                _this.dialogFormVisible = false;
+                                _this.findBackendMenu();
+                            } else {
+                                _this.$message.error(res.msg);
+                            }
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        url: "/vli/vli/back/end/menu/update",
+                        dataType: 'json',//数据类型
+                        type: 'POST',//类型
+                        data: _this.form,//
+                        //请求成功
+                        success: function (res) {
+                            if (res.code == 1) {
+                                _this.$message.success(res.msg);
+                                _this.form = {};
+                                _this.dialogFormVisible = false;
+                                _this.findBackendMenu();
+                            } else {
+                                _this.$message.error(res.msg);
+                            }
+                        }
+                    })
+                }
+            },
+            //关闭对话框 重载页面
+            closePopup() {
+                let _this = this;
+                _this.dialogFormVisible = false;
+                _this.findBackendMenu();
+            }
+        },
+        created: function () {
+            this.findBackendMenu();
+        }
+    })
+</script>

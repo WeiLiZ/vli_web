@@ -36,7 +36,7 @@ public enum ResultCode {
     USER_HAS_LOGIN(20006, "用户已登录"),
     USER_FORVER(20007, "该账户已被永久封停"),
     USER_MOMENT(20008, "该账户已被暂时封停"),
-    USER_HAS_USERNAME_OR_PHONE(20009, "用户名或手机号"),
+    USER_HAS_USERNAME_OR_PHONE(20009, "用户名或手机号已存在"),
 
     /* 业务错误：30001-39999 */
     SPECIFIED_QUESTIONED_USER_NOT_EXIST(30001, "某业务出现问题"),

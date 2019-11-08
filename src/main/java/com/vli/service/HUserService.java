@@ -55,7 +55,6 @@ public class HUserService {
 
     public ResultModel add(HUserParameter params) {
         Example example = new Example(User.class);
-        example.setOrderByClause("create_time DESC");
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("deleteStatus", Boolean.FALSE);
         criteria.andEqualTo("userName", params.getUserName());
@@ -75,11 +74,20 @@ public class HUserService {
     }
 
     public ResultModel update(HUserParameter params) {
-        BaseConverter baseConverter = new BaseConverter();
-        User convert = (User) baseConverter.convert(params, User.class);
-        convert.setUpdateTime(new Date());
-        userMapper.updateByPrimaryKeySelective(convert);
-        return ResultModel.success();
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("deleteStatus", Boolean.FALSE);
+        criteria.andEqualTo("userName", params.getUserName());
+        criteria.andEqualTo("phone", params.getPhone());
+        List<User> users = userMapper.selectByExample(example);
+        if (users.isEmpty()) {
+            BaseConverter baseConverter = new BaseConverter();
+            User convert = (User) baseConverter.convert(params, User.class);
+            convert.setUpdateTime(new Date());
+            userMapper.updateByPrimaryKeySelective(convert);
+            return ResultModel.success(ResultCode.SUCCESS);
+        }
+        return ResultModel.failure(ResultCode.USER_HAS_USERNAME_OR_PHONE);
     }
 
     public ResultModel delete(HUserParameter params) {

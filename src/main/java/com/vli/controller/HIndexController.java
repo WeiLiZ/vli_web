@@ -8,34 +8,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/vli/back/end")
 public class HIndexController {
 
+    /**
+     * 首页
+     * @return
+     */
     @GetMapping("/index")
     public String index() {
         return "index";
     }
 
+    /**
+     * 登陆页面
+     * @return
+     */
     @GetMapping(value = "/login")
     public String login() {
         return "login";
     }
 
+    /**
+     * 首页欢迎页
+     * @return
+     */
     @GetMapping("/home")
     public String home() {
         return "home";
     }
 
+    /**
+     * 没有权限提示页
+     * @return
+     */
+    @GetMapping("/tips")
+    public String tips() {
+        return "tips";
+    }
+
+    /**
+     * 管理后端菜单页面
+     * @return
+     */
     @GetMapping("/back/end/menu/list")
     public String backEndMenuList() {
         return "backEndMenu/back_end_menu_list";
     }
 
+    /**
+     * 管理用户页面
+     * @return
+     */
     @GetMapping("/back/end/user/list")
     public String backEndUserList() {
         return "user/user_list";
     }
 
-    @GetMapping("/tips")
-    public String tips() {
-        return "tips";
+    /**
+     * 管理用户页面
+     * @return
+     */
+    @GetMapping("/back/end/article/list")
+    public String articleList() {
+        return "article/article_list";
     }
 
 }

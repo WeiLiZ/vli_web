@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
+/**
+ * 用户接口
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -29,6 +32,11 @@ public class UserController {
     @Resource
     private UserConverter userConverter;
 
+    /**
+     * 注册
+     * @param userParameter
+     * @return
+     */
     @PostMapping("/register")
     public ResultModel register(@RequestBody UserParameter userParameter) {
         if (!userService.insert(userParameter)) {
@@ -37,6 +45,13 @@ public class UserController {
         return ResultModel.success(ResultCode.SUCCESS);
     }
 
+    /**
+     * 登陆
+     * @param request
+     * @param session
+     * @param userParameter
+     * @return
+     */
     @PostMapping("/login")
     public ResultModel login(HttpServletRequest request, HttpSession session, @RequestBody UserParameter userParameter) {
         String authorization = request.getHeader("Authorization");

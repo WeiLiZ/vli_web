@@ -22,12 +22,22 @@ public class HUserController {
     @Resource
     private HUserService hUserService;
 
+    /**
+     * 查询
+     * @return
+     */
     @PostMapping("/list")
     public ResultModel<ModelPageInfo<HUserVo>> list() {
         ModelPageInfo modelPageInfo = hUserService.list();
         return ResultModel.success(ResultCode.SUCCESS, modelPageInfo);
     }
 
+    /**
+     * 添加
+     * @param request
+     * @param params
+     * @return
+     */
     @PostMapping("/add")
     public ResultModel add(HttpServletRequest request, HUserParameter params) {
         UserVo user = (UserVo) request.getSession().getAttribute("user");
@@ -38,6 +48,12 @@ public class HUserController {
         return resultModel;
     }
 
+    /**
+     * 修改
+     * @param request
+     * @param params
+     * @return
+     */
     @PostMapping("/update")
     public ResultModel update(HttpServletRequest request, HUserParameter params) {
         UserVo user = (UserVo) request.getSession().getAttribute("user");
@@ -48,6 +64,12 @@ public class HUserController {
         return resultModel;
     }
 
+    /**
+     * 删除
+     * @param request
+     * @param params
+     * @return
+     */
     @PostMapping("/delete")
     public ResultModel delete(HttpServletRequest request, HUserParameter params) {
         UserVo user = (UserVo) request.getSession().getAttribute("user");

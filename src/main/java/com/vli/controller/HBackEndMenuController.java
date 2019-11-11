@@ -22,6 +22,11 @@ public class HBackEndMenuController {
     @Resource
     private HBackEndMenuService hBackEndMenuService;
 
+    /**
+     * 查询后端菜单
+     * @param request
+     * @return
+     */
     @PostMapping("/list")
     @ResponseBody
     public ResultModel<ModelPageInfo<HBackEndMenuVo>> list(HttpServletRequest request){
@@ -29,6 +34,12 @@ public class HBackEndMenuController {
         return ResultModel.success(ResultCode.SUCCESS,modelPageInfo);
     }
 
+    /**
+     * 添加
+     * @param request
+     * @param params
+     * @return
+     */
     @PostMapping("/add")
     @ResponseBody
     public ResultModel add(HttpServletRequest request,HBackEndMenuParameter params){
@@ -36,6 +47,11 @@ public class HBackEndMenuController {
         return resultModel;
     }
 
+    /**
+     * 修改
+     * @param params
+     * @return
+     */
     @PostMapping("/update")
     @ResponseBody
     public ResultModel update(HBackEndMenuParameter params){
@@ -43,6 +59,11 @@ public class HBackEndMenuController {
         return resultModel;
     }
 
+    /**
+     * 删除
+     * @param params
+     * @return
+     */
     @PostMapping("/delete")
     @ResponseBody
     public ResultModel delete(HBackEndMenuParameter params){

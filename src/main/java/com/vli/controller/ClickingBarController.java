@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 点击栏接口
+ */
 @RestController
 @RequestMapping("/vli/clicking/bar")
 public class ClickingBarController {
@@ -18,6 +21,10 @@ public class ClickingBarController {
     @Resource
     private ClickingBarService clickingBarService;
 
+    /**
+     * 查询所有点击栏
+     * @return
+     */
     @PostMapping("/list")
     public ResultModel<ModelPageInfo<ClickingBarVo>> list(){
         ModelPageInfo<ClickingBarVo> resultModel=clickingBarService.list();

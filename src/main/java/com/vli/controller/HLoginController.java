@@ -22,6 +22,12 @@ public class HLoginController {
     @Resource
     private UserService userService;
 
+    /**
+     * 登陆
+     * @param request
+     * @param userParameter
+     * @return
+     */
     @PostMapping("/login")
     @ResponseBody
     public ResultModel login(HttpServletRequest request, UserParameter userParameter)  {
@@ -40,6 +46,13 @@ public class HLoginController {
             return ResultModel.failure(ResultCode.USER_HAS_LOGIN);
         }
     }
+
+    /**
+     * 退出登录
+     * @param request
+     * @return
+     * @throws ServletException
+     */
     @PostMapping("/logout")
     @ResponseBody
     public ResultModel logout(HttpServletRequest request) throws ServletException {

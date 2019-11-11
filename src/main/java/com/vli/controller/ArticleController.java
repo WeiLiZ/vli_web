@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 文章接口
+ */
 @RestController
 @RequestMapping("/vli/article")
 public class ArticleController {
@@ -18,6 +21,10 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
+    /**
+     * 查询所有文章
+     * @return
+     */
     @PostMapping("/list")
     public ResultModel<ModelPageInfo<ArticleVo>>list(){
         ModelPageInfo<ArticleVo> modelPageInfo=articleService.list();

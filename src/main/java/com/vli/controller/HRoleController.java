@@ -14,6 +14,10 @@ public class HRoleController {
     @Resource
     private HRoleService hRoleService;
 
+    /**
+     * 查询所有权限
+     * @return
+     */
     @RequestMapping("/list")
     public ResultModel list(){
         ResultModel resultModel=hRoleService.list();

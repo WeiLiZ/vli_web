@@ -1,7 +1,6 @@
 
-_squid:S1126"AReplace this if-then-else statement by a single return statement.(¼ò8ôŞŸÕã-
-Xsquid:S1161!":Add the "@Override" annotation above this method signature(ˆêÿÖ8ùë Õã-
-Xsquid:S1161$":Add the "@Override" annotation above this method signature(‡Ú§·8ùë Õã-
-Ÿsquid:S1186!"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆêÿÖ8ôŞŸÕã-
-Ÿsquid:S1186$"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‡Ú§·8ôŞŸÕã-
-Xsquid:S1161":Add the "@Override" annotation above this method signature(ä®Ò8ùë Õã-
+Xsquid:S1161"":Add the "@Override" annotation above this method signature(ˆêÿÖ8£ë‚Æä-
+Ÿsquid:S1186%"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‡Ú§·8£ë‚Æä-
+Xsquid:S1161%":Add the "@Override" annotation above this method signature(‡Ú§·8£ë‚Æä-
+Ÿsquid:S1186""€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆêÿÖ8£ë‚Æä-
+Xsquid:S1161":Add the "@Override" annotation above this method signature(ä®Ò8£ë‚Æä-

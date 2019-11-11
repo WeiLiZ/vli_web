@@ -63,12 +63,21 @@ public class HIndexController {
     }
 
     /**
-     * 管理用户页面
+     * 文章管理页面
      * @return
      */
     @GetMapping("/back/end/article/list")
     public String articleList() {
         return "article/article_list";
+    }
+
+    /**
+     * 点击栏展示管理
+     * @return
+     */
+    @GetMapping("/back/end/clicking/bar/list")
+    public String clickingBarList() {
+        return "clickingBar/clicking_bar_list";
     }
 
 }

@@ -13,9 +13,11 @@ public class HArticleVo {
     private Date createTime;
     private String title;
     private String introduce;
+    private String content;
     private Integer userId;
     private String userName;
     private Integer viewNum;
+    private Integer weightNum;
     private Integer typeId;
     private String typeName;
     private String homePic;

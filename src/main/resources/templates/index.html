@@ -6,7 +6,14 @@
     <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
 </head>
 <style>
-    .el-header, .el-footer {
+    .el-header {
+        background-color: #B3C0D1;
+        color: #333;
+        line-height: 60px;
+        width: 100%;
+    }
+
+    .el-footer {
         background-color: #B3C0D1;
         color: #333;
         line-height: 60px;
@@ -25,19 +32,19 @@
         color: #333;
         text-align: center;
         line-height: 160px;
+        padding: 0px;
     }
 
     body > .el-container {
-        margin-bottom: 40px;
+        padding: 60px;
     }
-
     [v-cloak] {
         display: none !important;
     }
 </style>
-<body >
-<div id="app" v-cloak>
-    <el-container style="height: 930px; margin: -8px; ">
+<body>
+<div id="app" v-cloak >
+    <el-container style="height: 942px; margin: -8px; ">
         <el-header>
             <span>VL管理系统</span>
             <el-button type="text" @click="logout">退出登录</el-button>
@@ -61,7 +68,7 @@
                     <el-breadcrumb separator="/index" id="el-breadcrumb">
                         <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
                     </el-breadcrumb>
-                    <iframe :src="loc" width="100%" height="88%" frameborder="0"></iframe>
+                    <iframe :src="loc" width="100%" height="88%" frameborder="0" style="margin: 0px;padding-bottom: 0px;overflow: hidden; border:none;"></iframe>
                 </el-main>
                 <el-footer>Footer</el-footer>
             </el-container>

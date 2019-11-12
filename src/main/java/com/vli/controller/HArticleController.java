@@ -20,7 +20,7 @@ public class HArticleController {
     private HArticleService hArticleService;
 
     /**
-     *
+     * 查询
      * @return
      */
     @PostMapping("/list")
@@ -30,7 +30,7 @@ public class HArticleController {
     }
 
     /**
-     *
+     * 添加
      * @param params
      * @return
      */
@@ -41,7 +41,7 @@ public class HArticleController {
     }
 
     /**
-     *
+     * 修改
      * @param params
      * @return
      */
@@ -52,7 +52,7 @@ public class HArticleController {
     }
 
     /**
-     *
+     * 删除
      * @param params
      * @return
      */

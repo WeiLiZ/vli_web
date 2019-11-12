@@ -5,11 +5,13 @@
 </head>
 <!-- 引入样式 -->
 <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
+<link rel="stylesheet" href="../static/css/page.css" th:href="@{/css/page.css}">
 <!-- 先引入 Vue -->
 <script src="../static/js/vue.js" th:src="@{/js/vue.js}"></script>
 <!-- 引入组件库 -->
 <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../static/js/pagination.js" th:src="@{/js/pagination.js}"></script>
 <style>
     [v-cloak] {
         display: none !important;
@@ -24,7 +26,7 @@
     </div>
     <!--表格-->
     <el-table
-            :data="tableData"
+            :data="tableData.data"
             style="width: 100%">
         <el-table-column
                 label="ID"
@@ -103,7 +105,8 @@
                 <el-input v-model="form.userName" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="密码" label-width="120px">
-                <el-input v-model="form.password" auto-complete="off" type="password" :disabled="disabledStatus"></el-input>
+                <el-input v-model="form.password" auto-complete="off" type="password"
+                          :disabled="disabledStatus"></el-input>
             </el-form-item>
             <el-form-item label="手机号" label-width="120px">
                 <el-input v-model="form.phone" auto-complete="off"></el-input>
@@ -131,6 +134,9 @@
             <el-button type="primary" @click="onSubmitForm">确 定</el-button>
         </div>
     </el-dialog>
+    <pagination :total="tableData.total"
+                :page_size="tableData.pageSize"
+                @page_changed="pageChanged"></pagination>
 </div>
 </body>
 </html>
@@ -138,7 +144,7 @@
     new Vue({
         el: "#app",
         data: {
-            tableData: [{}],
+            tableData: {},
             form: {
                 id: "",
                 userName: "",
@@ -146,12 +152,14 @@
                 sex: "",
                 age: "",
                 roleId: "",
-                password:""
+                password: ""
             },
             dialogFormVisible: false,
             popupTitle: "",
-            disabledStatus:false,
-            roles:[{}],
+            disabledStatus: false,
+            roles: [{}],
+            page_size:10,
+            page:1
         },
         methods: {
             //点击打开添加框
@@ -160,7 +168,7 @@
                 _this.dialogFormVisible = true;
                 _this.form = {};
                 _this.popupTitle = "添加";
-                _this.disabledStatus=false;
+                _this.disabledStatus = false;
             },
             //点击打开修改框
             onOpenUpdatePopup(index, row) {
@@ -168,7 +176,7 @@
                 _this.dialogFormVisible = true;
                 _this.form = row;
                 _this.popupTitle = "修改";
-                _this.disabledStatus=true;
+                _this.disabledStatus = true;
             },
             //删除
             handleDelete(index, row) {
@@ -189,7 +197,7 @@
                             if (res.code == 1) {
                                 _this.$message.success('删除成功');
                                 _this.findUserList();
-                            }else{
+                            } else {
                                 _this.$message.error(res.msg);
                             }
                         }
@@ -246,20 +254,25 @@
             //查询用户列表
             findUserList() {
                 let _this = this;
+                let parmas={
+                    page:_this.page,
+                    pageSize:_this.page_size,
+                };
                 $.ajax({
                     url: "/vli/vli/back/end/user/list",
                     type: "POST",
                     dataType: "json",
+                    data:parmas,
                     success: function (res) {
                         if (res.code == 1) {
-                            _this.tableData = res.data.data;
+                            _this.tableData = res.data;
                         } else {
                             _this.$message.error(res.msg);
                         }
                     }
                 })
             },
-            findRoleList(){
+            findRoleList() {
                 let _this = this;
                 $.ajax({
                     url: "/vli/vli/back/end/role/list",
@@ -273,6 +286,11 @@
                         }
                     }
                 })
+            },
+            pageChanged(num) {
+                let _this=this;
+                _this.page=num;
+                _this.findUserList();
             }
         },
         created: function () {

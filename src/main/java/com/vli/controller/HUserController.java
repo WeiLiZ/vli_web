@@ -1,10 +1,10 @@
 package com.vli.controller;
 
+import com.vli.from.HUserFrom;
 import com.vli.parameter.HUserParameter;
 import com.vli.po.ModelPageInfo;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
-import com.vli.po.User;
 import com.vli.service.HUserService;
 import com.vli.vo.HUserVo;
 import com.vli.vo.UserVo;
@@ -27,8 +27,8 @@ public class HUserController {
      * @return
      */
     @PostMapping("/list")
-    public ResultModel<ModelPageInfo<HUserVo>> list() {
-        ModelPageInfo modelPageInfo = hUserService.list();
+    public ResultModel<ModelPageInfo<HUserVo>> list(HUserFrom from) {
+        ModelPageInfo modelPageInfo = hUserService.list(from);
         return ResultModel.success(ResultCode.SUCCESS, modelPageInfo);
     }
 

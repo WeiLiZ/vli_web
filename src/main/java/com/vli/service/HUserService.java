@@ -2,6 +2,7 @@ package com.vli.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.vli.from.HUserFrom;
 import com.vli.mapper.RoleMapper;
 import com.vli.mapper.UserMapper;
 import com.vli.parameter.HUserParameter;
@@ -31,8 +32,8 @@ public class HUserService {
     @Resource
     private RoleMapper roleMapper;
 
-    public ModelPageInfo list() {
-        Page<User> page = PageHelper.startPage(1, 10);
+    public ModelPageInfo list(HUserFrom from) {
+        Page<User> page = PageHelper.startPage(from.getPage(), from.getPageSize());
         Example example = new Example(User.class);
         example.setOrderByClause("create_time DESC");
         Example.Criteria criteria = example.createCriteria();

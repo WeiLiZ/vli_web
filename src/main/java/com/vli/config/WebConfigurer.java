@@ -26,6 +26,7 @@ public class WebConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
                 .excludePathPatterns("/js/**")//静态资源
                 .excludePathPatterns("/css/**")//静态资源
+                .excludePathPatterns("/img/**")//静态资源
                 .excludePathPatterns("/vli/back/end/tips")//提示页面
                 .excludePathPatterns("/vli/back/end/login");//后台登陆页面
     }

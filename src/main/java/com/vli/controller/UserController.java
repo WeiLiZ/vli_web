@@ -53,18 +53,15 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public ResultModel login(HttpServletRequest request, HttpSession session, @RequestBody UserParameter userParameter) {
-        String authorization = request.getHeader("Authorization");
-        if (authorization == null || "".equals(authorization)) {
+    public ResultModel login(HttpServletRequest request, @RequestBody UserParameter userParameter) {
+        UserVo user = (UserVo) request.getSession().getAttribute("QUser");
+        if (user == null || "".equals(user)) {
             String userIP = IpUtil.getUserIP(request);
             try {
                 ResultModel resultModel = userService.login(userParameter.getUserName(), userParameter.getPassword(), userIP);
-                HashMap<String, Object> map = new HashMap<>();
-                User data = (User) resultModel.getData();
-                UserVo convert = userConverter.convert(data, UserVo.class);
-                map.put("token", MD5.MD5(data.getUserName()+data.getPassword()));
-                map.put("user",convert);
-                return ResultModel.success(ResultCode.SUCCESS,map);
+                UserVo data = (UserVo) resultModel.getData();
+                request.getSession().setAttribute("QUser",data);
+                return ResultModel.success(ResultCode.SUCCESS);
             } catch (Exception e) {
                 ResultCode userLoginError = ResultCode.USER_LOGIN_ERROR;
                 return ResultModel.failure(userLoginError);

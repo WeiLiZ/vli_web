@@ -48,20 +48,21 @@ public class UserController {
     /**
      * 登陆
      * @param request
-     * @param session
      * @param userParameter
      * @return
      */
     @PostMapping("/login")
     public ResultModel login(HttpServletRequest request, @RequestBody UserParameter userParameter) {
-        UserVo user = (UserVo) request.getSession().getAttribute("QUser");
-        if (user == null || "".equals(user)) {
+        String Authorization = request.getHeader("Authorization");
+        if (Authorization == null || "".equals(Authorization)) {
             String userIP = IpUtil.getUserIP(request);
             try {
                 ResultModel resultModel = userService.login(userParameter.getUserName(), userParameter.getPassword(), userIP);
+                HashMap<String, Object> map = new HashMap<>();
                 UserVo data = (UserVo) resultModel.getData();
-                request.getSession().setAttribute("QUser",data);
-                return ResultModel.success(ResultCode.SUCCESS);
+                map.put("token", MD5.MD5(data.getUserName())+MD5.MD5(data.getPhone()));
+                map.put("user",data);
+                return ResultModel.success(ResultCode.SUCCESS,map);
             } catch (Exception e) {
                 ResultCode userLoginError = ResultCode.USER_LOGIN_ERROR;
                 return ResultModel.failure(userLoginError);

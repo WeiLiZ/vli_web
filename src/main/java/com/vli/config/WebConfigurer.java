@@ -29,10 +29,10 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/css/**")//静态资源
                 .excludePathPatterns("/img/**")//静态资源
                 //前端
-                .excludePathPatterns("/vli/article/list")//文章查询
-                .excludePathPatterns("/vli/clicking/bar/list")//点击栏
                 .excludePathPatterns("/user/login")//用户登陆
                 .excludePathPatterns("/user/register")//用户注册
+                .excludePathPatterns("/vli/article/list")//文章查询
+                .excludePathPatterns("/vli/clicking/bar/list")//点击栏
                 //后端
                 .excludePathPatterns("/vli/back/end/tips")//提示页面
                 .excludePathPatterns("/vli/back/end/login");//后台登陆页面

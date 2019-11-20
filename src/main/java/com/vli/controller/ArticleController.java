@@ -5,11 +5,10 @@ import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
 import com.vli.service.ArticleService;
 import com.vli.vo.ArticleVo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * 文章接口
@@ -29,5 +28,12 @@ public class ArticleController {
     public ResultModel<ModelPageInfo<ArticleVo>>list(){
         ModelPageInfo<ArticleVo> modelPageInfo=articleService.list();
         return ResultModel.success(ResultCode.SUCCESS,modelPageInfo);
+    }
+
+    @PostMapping("/findArticleById")
+    public ResultModel findArticleById(@RequestBody Map<String,Object> params){
+        Integer articleId = Integer.valueOf(params.get("articleId").toString());
+        ArticleVo articleVo=articleService.findArticleById(articleId);
+        return ResultModel.success(ResultCode.SUCCESS,articleVo);
     }
 }

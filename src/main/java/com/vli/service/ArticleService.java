@@ -3,7 +3,6 @@ package com.vli.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.vli.converter.ArticleConverter;
-import com.vli.converter.ModelPageInfoConvert;
 import com.vli.mapper.ArticleMapper;
 import com.vli.po.Article;
 import com.vli.po.ModelPageInfo;
@@ -39,5 +38,10 @@ public class ArticleService {
         modelPageInfo.setPageSize(page.getPageSize());
         modelPageInfo.setData(convert);
         return modelPageInfo;
+    }
+
+    public ArticleVo findArticleById(Integer id) {
+        Article article = articleMapper.selectByPrimaryKey(id);
+        return articleConverter.convert(article,ArticleVo.class);
     }
 }

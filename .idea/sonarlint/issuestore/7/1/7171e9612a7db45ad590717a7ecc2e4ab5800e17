@@ -1,2 +1,5 @@
 
-Hsquid:S5411*"*Use the primitive boolean expression here.(¸¡ú8Öºàõã-
+Wsquid:UselessImportCheck",Remove this unused import 'com.vli.po.User'.(íîËÿ8¥ÏÊóæ-
+Hsquid:S5411*"*Use the primitive boolean expression here.(¸¡ú8¥ÏÊóæ-
+ssquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êò·öüÿÿÿÿ8¥ÏÊóæ-
+fsquid:UselessImportCheck";Remove this unused import 'javax.servlet.http.HttpSession'.(í¨ô8Å‰àôæ-

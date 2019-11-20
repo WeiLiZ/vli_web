@@ -6,6 +6,8 @@ import lombok.Data;
 public class HBackEndMenuParameter {
 
     private Integer id;
+
     private String name;
+
     private String site;
 }

@@ -28,3 +28,11 @@ thymeleaf:
   encoding: UTF-8
   content-type: text/html
   mode: HTML5
+
+#查询QQ信息接口
+slt:
+  #接口1
+  path-one: http://api.ccswust.org/qqxt/api.php
+#日志
+logging:
+  config: classpath:log4j2.yml

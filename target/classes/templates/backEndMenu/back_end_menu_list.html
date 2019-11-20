@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title></title>
 </head>
 <!-- 引入样式 -->
 <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
@@ -109,14 +110,14 @@
         methods: {
             //点击打开添加框
             onOpenAddPopup() {
-                var _this = this;
+                let _this = this;
                 _this.dialogFormVisible = true;
                 _this.form = {};
                 _this.popupTitle = "添加";
             },
             //点击打开修改框
             onOpenUpdatePopup(index, row) {
-                var _this = this;
+                let _this = this;
                 _this.dialogFormVisible = true;
                 _this.form = row;
                 _this.popupTitle = "修改";
@@ -147,7 +148,7 @@
             },
             //查询
             findBackendMenu() {
-                var _this = this;
+                let _this = this;
                 $.ajax({
                     url: '/vli/vli/back/end/menu/list',//地址
                     dataType: 'json',//数据类型

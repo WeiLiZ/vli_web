@@ -10,5 +10,4 @@ public class VliApplication {
     public static void main(String[] args) {
         SpringApplication.run(VliApplication.class,args);
     }
-
 }

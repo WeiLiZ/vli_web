@@ -2,7 +2,7 @@ package com.vli.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.vli.from.HUserFrom;
+import com.vli.from.HUserForm;
 import com.vli.mapper.RoleMapper;
 import com.vli.mapper.UserMapper;
 import com.vli.parameter.HUserParameter;
@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class HUserService {
     @Resource
     private RoleMapper roleMapper;
 
-    public ModelPageInfo list(HUserFrom from) {
+    public ModelPageInfo list(HUserForm from) {
         Page<User> page = PageHelper.startPage(from.getPage(), from.getPageSize());
         Example example = new Example(User.class);
         example.setOrderByClause("create_time DESC");

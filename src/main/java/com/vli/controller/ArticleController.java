@@ -30,10 +30,38 @@ public class ArticleController {
         return ResultModel.success(ResultCode.SUCCESS,modelPageInfo);
     }
 
+    /**
+     * 获取文章详情 根据id查询文章
+     * @param params
+     * @return
+     */
     @PostMapping("/findArticleById")
     public ResultModel findArticleById(@RequestBody Map<String,Object> params){
         Integer articleId = Integer.valueOf(params.get("articleId").toString());
+        if (articleId==null){
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
+        }
         ArticleVo articleVo=articleService.findArticleById(articleId);
         return ResultModel.success(ResultCode.SUCCESS,articleVo);
     }
+
+    /**
+     * 获取用户其他文章  根据用户id查询
+     * @param params
+     * @return
+     */
+    @PostMapping("/getUserOtherArticle")
+    public ResultModel getUserOtherArticle(@RequestBody Map<String,Object> params){
+        Integer userId = Integer.valueOf(params.get("userId").toString());
+        if (userId==null){
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
+        }
+        Integer articleId = Integer.valueOf(params.get("articleId").toString());
+        if (articleId==null){
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
+        }
+        ModelPageInfo modelPageInfo=articleService.getUserOtherArticle(userId,articleId);
+        return ResultModel.success(modelPageInfo);
+    }
+
 }

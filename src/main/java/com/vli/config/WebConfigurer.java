@@ -32,9 +32,11 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/vli/user/login")//用户登陆
                 .excludePathPatterns("/vli/user/register")//用户注册
                 .excludePathPatterns("/vli/user/getQqInformation")//查询QQ信息
+                .excludePathPatterns("/vli/comment/getListComment")//查询评论
                 .excludePathPatterns("/vli/comment/subComment")//提交评论
                 .excludePathPatterns("/vli/article/list")//文章查询
                 .excludePathPatterns("/vli/article/findArticleById")//文章详情
+                .excludePathPatterns("/vli/article/getUserOtherArticle")//查询用户其他文章
                 .excludePathPatterns("/vli/clicking/bar/list")//点击栏
                 //后端
                 .excludePathPatterns("/vli/back/end/tips")//提示页面

@@ -5,6 +5,7 @@
 # IntelliJ project files
 .idea
 *.iml
+*.gz
 out
 gen
 target/classes/META-INF/

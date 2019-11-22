@@ -43,6 +43,9 @@ public class ArticleService {
 
     public ArticleVo findArticleById(Integer id) {
         Article article = articleMapper.selectByPrimaryKey(id);
+        //修改浏览量
+        article.setViewNum(article.getViewNum()+1);
+        articleMapper.updateByPrimaryKeySelective(article);
         return articleConverter.convert(article,ArticleVo.class);
     }
 

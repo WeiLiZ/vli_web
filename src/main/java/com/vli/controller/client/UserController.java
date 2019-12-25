@@ -1,18 +1,16 @@
-package com.vli.controller;
+package com.vli.controller.client;
 
 import com.vli.po.Comment;
+import com.vli.service.UserService;
 import com.vli.utlis.HttpClientUtil;
-import com.vli.utlis.LogUtils;
 import com.vli.vo.UserVo;
 import com.vli.converter.UserConverter;
 import com.vli.parameter.UserParameter;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
-import com.vli.service.UserService;
 import com.vli.utlis.IpUtil;
 import com.vli.utlis.MD5;
 import com.alibaba.fastjson.JSONObject;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

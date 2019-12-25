@@ -1,4 +1,4 @@
-package com.vli.controller;
+package com.vli.controller.manage;
 
 import com.vli.po.ResultModel;
 import com.vli.service.HRoleService;

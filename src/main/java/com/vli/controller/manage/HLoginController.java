@@ -1,4 +1,4 @@
-package com.vli.controller;
+package com.vli.controller.manage;
 
 import com.vli.parameter.UserParameter;
 import com.vli.po.ResultCode;

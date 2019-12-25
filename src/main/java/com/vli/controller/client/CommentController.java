@@ -1,4 +1,4 @@
-package com.vli.controller;
+package com.vli.controller.client;
 
 import com.vli.from.CommentForm;
 import com.vli.po.ModelPageInfo;

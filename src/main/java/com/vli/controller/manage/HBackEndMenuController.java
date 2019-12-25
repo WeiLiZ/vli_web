@@ -1,10 +1,9 @@
-package com.vli.controller;
+package com.vli.controller.manage;
 
 import com.vli.parameter.HBackEndMenuParameter;
 import com.vli.po.ModelPageInfo;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
-import com.vli.po.User;
 import com.vli.service.HBackEndMenuService;
 import com.vli.vo.HBackEndMenuVo;
 import org.springframework.stereotype.Controller;

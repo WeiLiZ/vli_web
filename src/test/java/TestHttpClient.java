@@ -1,4 +1,4 @@
-import com.vli.controller.UserController;
+import com.vli.controller.client.UserController;
 import com.vli.parameter.UserParameter;
 import com.vli.po.ResultModel;
 

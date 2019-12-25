@@ -1,4 +1,4 @@
-package com.vli.controller;
+package com.vli.controller.manage;
 
 import com.vli.service.HClickingBarService;
 import org.springframework.web.bind.annotation.RequestMapping;

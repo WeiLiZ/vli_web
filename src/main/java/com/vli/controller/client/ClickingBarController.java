@@ -1,4 +1,4 @@
-package com.vli.controller;
+package com.vli.controller.client;
 
 import com.vli.parameter.ClickingBarParameter;
 import com.vli.po.ModelPageInfo;

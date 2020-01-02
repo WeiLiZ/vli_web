@@ -1,4 +1,4 @@
-package com.vli.service.Impl;
+package com.vli.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

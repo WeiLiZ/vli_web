@@ -1,5 +1,6 @@
 package com.vli.service;
 
+import com.vli.from.Params;
 import com.vli.po.ModelPageInfo;
 import com.vli.vo.ArticleVo;
 
@@ -8,7 +9,13 @@ import com.vli.vo.ArticleVo;
  * Created on 2019/12/25.
  */
 public interface ArticleService {
-    ModelPageInfo<ArticleVo> list();
+
+    /**
+     * 查询所有文章
+     * @Params 条件
+     * @return
+     */
+    ModelPageInfo<ArticleVo> list(Params params);
 
     ArticleVo findArticleById(Integer id);
 

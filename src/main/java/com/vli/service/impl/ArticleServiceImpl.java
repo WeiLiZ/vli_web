@@ -1,8 +1,10 @@
-package com.vli.service.Impl;
+package com.vli.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.vli.converter.ArticleConverter;
+import com.vli.converter.ModelPageInfoConvert;
+import com.vli.from.Params;
 import com.vli.mapper.ArticleMapper;
 import com.vli.po.Article;
 import com.vli.po.ModelPageInfo;
@@ -14,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -26,21 +30,34 @@ public class ArticleServiceImpl implements ArticleService {
     @Resource
     private ArticleConverter articleConverter;
 
+    @Resource
+    private ModelPageInfoConvert modelPageInfoConvert;
+
     @Override
-    public ModelPageInfo<ArticleVo> list() {
-        Page<Article> page = PageHelper.startPage(1, 10);
-        Example example = new Example(Article.class);
-        example.setOrderByClause("create_time DESC");
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("deleteStatus", Boolean.FALSE);
-        articleMapper.selectByExample(example);
-        List<ArticleVo> convert = articleConverter.convert(page.getResult(), ArticleVo.class);
-        ModelPageInfo<ArticleVo> modelPageInfo = new ModelPageInfo<>();
-        modelPageInfo.setTotal(page.getTotal());
-        modelPageInfo.setPage(page.getPageNum());
-        modelPageInfo.setPageSize(page.getPageSize());
-        modelPageInfo.setData(convert);
-        return modelPageInfo;
+    public ModelPageInfo<ArticleVo> list(Params params) {
+        Page<Article> page = PageHelper.startPage(params.getPage(), params.getPageSize());
+        Integer mode = Integer.valueOf(params.getMap().get("mode").toString());
+        if (mode==0){
+            Example example = new Example(Article.class);
+            example.setOrderByClause("create_time DESC");
+            example.createCriteria().andEqualTo("deleteStatus", Boolean.FALSE);
+            articleMapper.selectByExample(example);
+        }else{
+            Article article = new Article();
+            article.setDeleteStatus(Boolean.FALSE);
+            articleMapper.select(article);
+        }
+        List<ArticleVo> convert;
+        convert = articleConverter.convert(page.getResult(), ArticleVo.class);
+        //1为热门推荐  2为点击排行
+        if (mode == 1) {
+            //通过评论量排序
+            convert = convert.stream().sorted(Comparator.comparing(ArticleVo::getCommentNum).reversed()).collect(Collectors.toList());
+        } else if (mode == 2) {
+            //通过浏览量排序
+            convert = convert.stream().sorted(Comparator.comparing(ArticleVo::getViewNum).reversed()).collect(Collectors.toList());
+        }
+        return modelPageInfoConvert.convertDifferentPages(page, convert);
     }
 
     @Override
@@ -64,11 +81,6 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.selectByExample(example);
         BaseConverter baseConverter = new BaseConverter();
         List<ArticleVo> convert = baseConverter.convert(page.getResult(), ArticleVo.class);
-        ModelPageInfo<ArticleVo> modelPageInfo = new ModelPageInfo<>();
-        modelPageInfo.setData(convert);
-        modelPageInfo.setPage(page.getPageNum());
-        modelPageInfo.setPageSize(page.getPageSize());
-        modelPageInfo.setTotal(page.getTotal());
-        return modelPageInfo;
+        return modelPageInfoConvert.convertDifferentPages(page, convert);
     }
 }

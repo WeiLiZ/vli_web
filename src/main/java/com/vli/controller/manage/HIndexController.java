@@ -48,7 +48,7 @@ public class HIndexController {
      * 管理后端菜单页面
      * @return
      */
-    @GetMapping("/back/end/menu/list")
+    @GetMapping("/back/end/menu/index")
     public String backEndMenuList() {
         return "backEndMenu/back_end_menu_list";
     }
@@ -57,7 +57,7 @@ public class HIndexController {
      * 管理用户页面
      * @return
      */
-    @GetMapping("/back/end/user/list")
+    @GetMapping("/back/end/user/index")
     public String backEndUserList() {
         return "user/user_list";
     }
@@ -66,7 +66,7 @@ public class HIndexController {
      * 文章管理页面
      * @return
      */
-    @GetMapping("/back/end/article/list")
+    @GetMapping("/back/end/article/index")
     public String articleList() {
         return "article/article_list";
     }
@@ -75,9 +75,17 @@ public class HIndexController {
      * 点击栏展示管理
      * @return
      */
-    @GetMapping("/back/end/clicking/bar/list")
+    @GetMapping("/back/end/clicking/bar/index")
     public String clickingBarList() {
         return "clickingBar/clicking_bar_list";
     }
 
+    /**
+     * 点击栏展示管理
+     * @return
+     */
+    @GetMapping("/back/end/front/menu/index")
+    public String frontMenuList() {
+        return "menu/menu_list";
+    }
 }

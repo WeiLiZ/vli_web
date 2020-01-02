@@ -38,6 +38,7 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/vli/article/findArticleById")//文章详情
                 .excludePathPatterns("/vli/article/getUserOtherArticle")//查询用户其他文章
                 .excludePathPatterns("/vli/clicking/bar/list")//点击栏
+                .excludePathPatterns("/vli/menu/list")//导航栏菜单
                 //后端
                 .excludePathPatterns("/vli/back/end/tips")//提示页面
                 .excludePathPatterns("/vli/back/end/login");//后台登陆页面

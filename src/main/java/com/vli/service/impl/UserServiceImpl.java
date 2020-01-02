@@ -1,4 +1,4 @@
-package com.vli.service.Impl;
+package com.vli.service.impl;
 
 import com.vli.converter.UserConverter;
 import com.vli.mapper.UserMapper;

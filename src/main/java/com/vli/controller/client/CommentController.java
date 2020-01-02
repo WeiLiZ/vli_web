@@ -46,19 +46,19 @@ public class CommentController {
      */
     @PostMapping("/subComment")
     public ResultModel subComment(@RequestBody CommentForm form) {
-        if (form.getMail().equals("")) {
+        if ("".equals(form.getMail())||null==form.getMail()) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        if (form.getNickName().equals("")) {
+        if ("".equals(form.getNickName())||null==form.getNickName()) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        if (form.getArticleId() == null) {
+        if (null==form.getArticleId() ) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        if (form.getQqNumber().equals("")) {
+        if ("".equals(form.getQqNumber())||null==form.getQqNumber()) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        if (form.getContent().equals("")) {
+        if ("".equals(form.getContent())||null==form.getContent()) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
         ResultModel resultModel = commentService.subComment(form);

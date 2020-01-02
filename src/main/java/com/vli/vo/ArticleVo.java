@@ -9,24 +9,26 @@ import java.util.Date;
 @Data
 public class ArticleVo {
 
-    private Integer id;
+    private Integer id;//id
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date createTime;
+    private Date createTime;//创建时间
 
-    private String title;
+    private String title;//标题
 
-    private String introduce;
+    private String introduce;//介绍
 
-    private String content;
+    private String content;//内容
 
-    private Integer userId;
+    private Integer userId;//用户id
 
-    private String userName;
+    private String userName;//用户名称
 
-    private Integer viewNum;
+    private Integer viewNum;//浏览量
 
-    private Integer typeId;
+    private Integer commentNum;//评论量
 
-    private String homePic;
+    private Integer typeId;//类型id
+
+    private String homePic;//图片
 }

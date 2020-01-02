@@ -1,5 +1,6 @@
 package com.vli.controller.client;
 
+import com.vli.from.Params;
 import com.vli.po.ModelPageInfo;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
@@ -25,8 +26,8 @@ public class ArticleController {
      * @return
      */
     @PostMapping("/list")
-    public ResultModel<ModelPageInfo<ArticleVo>>list(){
-        ModelPageInfo<ArticleVo> modelPageInfo=articleService.list();
+    public ResultModel<ModelPageInfo<ArticleVo>>list(@RequestBody Params params){
+        ModelPageInfo<ArticleVo> modelPageInfo=articleService.list(params);
         return ResultModel.success(ResultCode.SUCCESS,modelPageInfo);
     }
 
@@ -38,7 +39,7 @@ public class ArticleController {
     @PostMapping("/findArticleById")
     public ResultModel findArticleById(@RequestBody Map<String,Object> params){
         Integer articleId = Integer.valueOf(params.get("articleId").toString());
-        if (articleId==null){
+        if (null==articleId){
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
         ArticleVo articleVo=articleService.findArticleById(articleId);

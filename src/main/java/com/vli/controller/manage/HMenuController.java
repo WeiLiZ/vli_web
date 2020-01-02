@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Created on 2019/11/22.
  */
 @RestController
-@RequestMapping("")
+@RequestMapping("/back/end/front/menu/list")
 public class HMenuController {
 }

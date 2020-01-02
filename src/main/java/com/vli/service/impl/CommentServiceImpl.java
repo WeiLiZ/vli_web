@@ -1,4 +1,4 @@
-package com.vli.service.Impl;
+package com.vli.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +16,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ZL
@@ -52,5 +53,14 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.selectByExample(example);
         ModelPageInfo<Comment> modelPageInfo = modelPageInfoConvert.convertPage(page);
         return modelPageInfo;
+    }
+
+    @Override
+    public Integer findCommentNum(Integer id) {
+        Comment comment = new Comment();
+        comment.setDeleteStatus(Boolean.FALSE);
+        comment.setArticleId(id);
+        List<Comment> comments = commentMapper.select(comment);
+        return comments.size();
     }
 }

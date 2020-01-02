@@ -12,4 +12,11 @@ public interface CommentService {
     ResultModel subComment(CommentForm form);
 
     ModelPageInfo getListComment(Integer articleId);
+
+    /**
+     * 通过文章id查询评论数量
+     * @param id 文章id
+     * @return
+     */
+    Integer findCommentNum(Integer id);
 }

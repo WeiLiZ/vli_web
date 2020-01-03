@@ -11,7 +11,6 @@
 <!-- 引入组件库 -->
 <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-<script src="../static/js/pagination.js" th:src="@{/js/pagination.js}"></script>
 <style>
     [v-cloak] {
         display: none !important;
@@ -98,6 +97,16 @@
             </template>
         </el-table-column>
     </el-table>
+    <div class="block">
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :page-sizes="[10, 30, 50, 100]"
+                :page-size="10"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="tableData.total">
+        </el-pagination>
+    </div>
     <!--添加&修改 对话框-->
     <el-dialog :title="popupTitle" :visible.sync="dialogFormVisible">
         <el-form :model="form">
@@ -134,9 +143,6 @@
             <el-button type="primary" @click="onSubmitForm">确 定</el-button>
         </div>
     </el-dialog>
-    <pagination :total="tableData.total"
-                :page_size="tableData.pageSize"
-                @page_changed="pageChanged"></pagination>
 </div>
 </body>
 </html>
@@ -158,8 +164,10 @@
             popupTitle: "",
             disabledStatus: false,
             roles: [{}],
-            page_size:10,
-            page:1
+            params: {
+                page: 1,
+                pageSize: 10,
+            }
         },
         methods: {
             //点击打开添加框
@@ -254,15 +262,11 @@
             //查询用户列表
             findUserList() {
                 let _this = this;
-                let parmas={
-                    page:_this.page,
-                    pageSize:_this.page_size,
-                };
                 $.ajax({
                     url: "/vli/vli/back/end/user/list",
                     type: "POST",
                     dataType: "json",
-                    data:parmas,
+                    data:_this.params,
                     success: function (res) {
                         if (res.code == 1) {
                             _this.tableData = res.data;
@@ -287,11 +291,16 @@
                     }
                 })
             },
-            pageChanged(num) {
-                let _this=this;
-                _this.page=num;
+            handleSizeChange(val) {
+                let _this = this;
+                _this.params.pageSize = val;
                 _this.findUserList();
-            }
+            },
+            handleCurrentChange(val) {
+                let _this = this;
+                _this.params.page = val;
+                _this.findUserList();
+            },
         },
         created: function () {
             let _this = this;

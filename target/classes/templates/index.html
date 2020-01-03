@@ -43,7 +43,7 @@
     }
 </style>
 <body>
-<div id="app" v-cloak >
+<div id="app" v-cloak>
     <el-container style="height: 942px; margin: -8px; ">
         <el-header>
             <span>VL管理系统</span>
@@ -64,11 +64,9 @@
             </el-col>
             </el-row>
             <el-container>
-                <el-main>
-                    <el-breadcrumb separator="/index" id="el-breadcrumb">
-                        <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-                    </el-breadcrumb>
-                    <iframe :src="loc" width="100%" height="88%" frameborder="0" style="margin: 0px;padding-bottom: 0px;overflow: hidden; border:none;"></iframe>
+                <el-main style="overflow-y: hidden">
+                    <iframe :src="loc" width="100%" height="88%" frameborder="0"
+                            style="  margin: 0px;padding-bottom: 0px;overflow: hidden; border:none;"></iframe>
                 </el-main>
                 <el-footer>Footer</el-footer>
             </el-container>

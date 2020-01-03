@@ -1,14 +1,13 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Example user template template
 ### Example user template
-/target/
 # IntelliJ project files
 .idea
 *.iml
 *.gz
 out
 gen
-target/classes/META-INF/
+target/*
 target/classes/com/vli/controller/CommentController.class
 target/classes/com/vli/controller/HArticleController.class
 target/classes/com/vli/controller/HClickingBarController.class
@@ -17,13 +16,11 @@ target/classes/com/vli/converter/HArticleConverter.class
 target/classes/com/vli/from/
 target/classes/com/vli/mapper/CommentMapper.class
 target/classes/com/vli/mapper/TypeMapper.class
-target/classes/com/vli/parameter/ClickingBarParameter.class
 target/classes/com/vli/parameter/HArticleParameter.class
 target/classes/com/vli/po/Comment.class
 target/classes/com/vli/po/Type.class
 target/classes/com/vli/service/CommentService.class
 target/classes/com/vli/service/HArticleService.class
-target/classes/com/vli/service/HClickingBarService.class
 target/classes/com/vli/utlis/HttpClientUtil.class
 target/classes/com/vli/utlis/LogEnum.class
 target/classes/com/vli/utlis/LogUtils.class
@@ -33,7 +30,6 @@ target/classes/static/css/bootstrap.min.css
 target/classes/static/css/page.css
 target/classes/static/css/style.css
 target/classes/static/img/
-target/classes/static/js/pagination.js
 target/classes/templates/article/
 target/classes/templates/clickingBar/
 target/generated-sources/

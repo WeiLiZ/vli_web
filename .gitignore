@@ -39,3 +39,11 @@ target/classes/templates/clickingBar/
 target/generated-sources/
 target/generated-test-sources/
 target/test-classes/
+target/classes/com/vli/controller/client/
+target/classes/com/vli/controller/manage/
+target/classes/com/vli/mapper/MenuMapper.class
+target/classes/com/vli/po/Menu.class
+target/classes/com/vli/service/MenuService.class
+target/classes/com/vli/service/impl/
+target/classes/templates/menu/
+target/vli_web-1.0-SNAPSHOT.jar.original

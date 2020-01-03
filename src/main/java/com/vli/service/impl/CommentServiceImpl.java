@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.vli.converter.ModelPageInfoConvert;
 import com.vli.from.CommentForm;
+import com.vli.mapper.ArticleMapper;
 import com.vli.mapper.CommentMapper;
+import com.vli.po.Article;
 import com.vli.po.Comment;
 import com.vli.po.ModelPageInfo;
 import com.vli.po.ResultModel;
@@ -32,6 +34,9 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     private ModelPageInfoConvert modelPageInfoConvert;
 
+    @Resource
+    private ArticleMapper articleMapper;
+
     @Override
     public ResultModel subComment(CommentForm form) {
         BaseConverter baseConverter = new BaseConverter();
@@ -39,6 +44,10 @@ public class CommentServiceImpl implements CommentService {
         convert.setCreateTime(new Date());
         convert.setDeleteStatus(Boolean.FALSE);
         commentMapper.insert(convert);
+        //修改文章评论量
+        Article article = articleMapper.selectByPrimaryKey(form.getArticleId());
+        article.setCommentNum(article.getCommentNum()+1);
+        articleMapper.updateByPrimaryKeySelective(article);
         return ResultModel.success();
     }
 

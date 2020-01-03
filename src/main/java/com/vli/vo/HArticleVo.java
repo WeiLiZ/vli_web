@@ -17,7 +17,7 @@ public class HArticleVo {
     private Integer userId;
     private String userName;
     private Integer viewNum;
-    private Integer weightNum;
+    private Integer commentNum;
     private Integer typeId;
     private String typeName;
     private String homePic;

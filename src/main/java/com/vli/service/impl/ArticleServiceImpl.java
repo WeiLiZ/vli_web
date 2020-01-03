@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,26 +35,24 @@ public class ArticleServiceImpl implements ArticleService {
     public ModelPageInfo<ArticleVo> list(Params params) {
         Page<Article> page = PageHelper.startPage(params.getPage(), params.getPageSize());
         Integer mode = Integer.valueOf(params.getMap().get("mode").toString());
-        if (mode==0){
-            Example example = new Example(Article.class);
+        Example example = new Example(Article.class);
+        //0为最新发布  1为热门推荐  2为点击排行
+        if (mode == 0) {
             example.setOrderByClause("create_time DESC");
-            example.createCriteria().andEqualTo("deleteStatus", Boolean.FALSE);
-            articleMapper.selectByExample(example);
-        }else{
-            Article article = new Article();
-            article.setDeleteStatus(Boolean.FALSE);
-            articleMapper.select(article);
+        } else if (mode == 1) {
+            example.setOrderByClause("comment_num DESC");
+        } else if (mode == 2) {
+            example.setOrderByClause("view_num DESC");
         }
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("deleteStatus", Boolean.FALSE);
+        //轮播图
+        if (mode==3){
+            criteria.andEqualTo("carousel",Boolean.TRUE);
+        }
+        articleMapper.selectByExample(example);
         List<ArticleVo> convert;
         convert = articleConverter.convert(page.getResult(), ArticleVo.class);
-        //1为热门推荐  2为点击排行
-        if (mode == 1) {
-            //通过评论量排序
-            convert = convert.stream().sorted(Comparator.comparing(ArticleVo::getCommentNum).reversed()).collect(Collectors.toList());
-        } else if (mode == 2) {
-            //通过浏览量排序
-            convert = convert.stream().sorted(Comparator.comparing(ArticleVo::getViewNum).reversed()).collect(Collectors.toList());
-        }
         return modelPageInfoConvert.convertDifferentPages(page, convert);
     }
 

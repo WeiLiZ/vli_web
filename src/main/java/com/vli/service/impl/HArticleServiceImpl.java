@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.vli.converter.HArticleConverter;
 import com.vli.converter.ModelPageInfoConvert;
+import com.vli.from.Params;
 import com.vli.mapper.ArticleMapper;
 import com.vli.parameter.HArticleParameter;
 import com.vli.po.Article;
@@ -35,20 +36,15 @@ public class HArticleServiceImpl implements HArticleService {
     private HArticleConverter hArticleConverter;
 
     @Override
-    public ModelPageInfo<HArticleVo> list() {
-        Page<Article> page = PageHelper.startPage(1, 10);
+    public ModelPageInfo<HArticleVo> list(Params params) {
+        Page<Article> page = PageHelper.startPage(params.getPage(), params.getPageSize());
         Example example = new Example(Article.class);
-        example.setOrderByClause("weight_num DESC , create_time DESC");
+        example.setOrderByClause("create_time DESC");
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("deleteStatus", Boolean.FALSE);
         articleMapper.selectByExample(example);
         List<HArticleVo> convert = hArticleConverter.convert(page.getResult(), HArticleVo.class);
-        ModelPageInfo<HArticleVo> modelPageInfo = new ModelPageInfo<>();
-        modelPageInfo.setTotal(page.getTotal());
-        modelPageInfo.setPageSize(page.getPageSize());
-        modelPageInfo.setPage(page.getPageNum());
-        modelPageInfo.setData(convert);
-        return modelPageInfo;
+        return modelPageInfoConvert.convertDifferentPages(page,convert);
     }
 
     @Override

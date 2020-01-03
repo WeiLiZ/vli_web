@@ -11,9 +11,7 @@ public class HArticleParameter {
 
     private String  introduce;
 
-    private Integer viewNum;
-
-    private Integer weightNum;
+    private Integer carousel;
 
     private String content;
 

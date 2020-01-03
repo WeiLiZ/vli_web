@@ -9,6 +9,13 @@ import com.vli.po.ResultModel;
  * Created on 2019/12/25.
  */
 public interface CommentService {
+
+    /**
+     * 添加评论
+     *
+     * @param form 添加的数据
+     * @return
+     */
     ResultModel subComment(CommentForm form);
 
     ModelPageInfo getListComment(Integer articleId);

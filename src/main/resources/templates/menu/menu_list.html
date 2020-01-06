@@ -1,10 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>vli</title>
+    </head>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="../static/css/page.css" th:href="@{/css/page.css}">
+    <!-- 先引入 Vue -->
+    <script src="../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+    <!-- 引入组件库 -->
+    <script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+    <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+    <body>
+        <div id="app" v-cloak>
+            <div>
+                <div style="text-align: right;">
+                    <el-button type="primary" plain @click="onOpenAddPopup">添加用户</el-button>
+                </div>
+            </div>
+            <!--表格-->
+            <el-table
+                    :data="tableData.data"
+                    style="width: 100%">
+                <el-table-column
+                        label="ID"
+                        width="100">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.id }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="创建日期"
+                        width="200">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.createTime }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="用户名"
+                        width="180">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.userName}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="菜单名"
+                        width="200">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.name}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="路径"
+                        width="120">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.url}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button
+                                size="mini"
+                                @click="onOpenUpdatePopup(scope.$index, scope.row)">编辑
+                        </el-button>
+                        <el-button
+                                size="mini"
+                                type="danger"
+                                @click="handleDelete(scope.$index, scope.row)">删除
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="block">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :page-sizes="[10, 30, 50, 100]"
+                        :page-size="10"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="tableData.total">
+                </el-pagination>
+            </div>
+            <!--添加&修改 对话框-->
+            <el-dialog :title="popupTitle" :visible.sync="dialogFormVisible">
+                <el-form :model="form">
+                    <el-form-item label="用户名" label-width="120px">
+                        <el-input v-model="form.name" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" label-width="120px">
+                        <el-input v-model="form.url" auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="closePopup">取 消</el-button>
+                    <el-button type="primary" @click="onSubmitForm">确 定</el-button>
+                </div>
+            </el-dialog>
+        </div>
+    </body>
 </html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            tableData: {},
+            form: {
+                id: "",
+                userId: "",
+                userName: "",
+                name: "",
+                url: "",
+            },
+            dialogFormVisible: false,
+            popupTitle: "",
+            params: {
+                page: 1,
+                pageSize: 10,
+            }
+        },
+        methods: {
+            //点击打开添加框
+            onOpenAddPopup() {
+                let _this = this;
+                _this.dialogFormVisible = true;
+                _this.form = {};
+                _this.popupTitle = "添加";
+            },
+            //点击打开修改框
+            onOpenUpdatePopup(index, row) {
+                let _this = this;
+                _this.dialogFormVisible = true;
+                _this.form = row;
+                _this.popupTitle = "修改";
+            },
+            //删除
+            handleDelete(index, row) {
+                let _this = this;
+                _this.$confirm('您确定删除?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'error'
+                }).then(function () {
+                    $.ajax({
+                        url: '/vli/vli/back/end/front/menu/delete',//地址
+                        dataType: 'json',//数据类型
+                        type: 'POST',//类型
+                        data: {
+                            id: row.id
+                        },
+                        success: function (res) {
+                            if (res.code === 1) {
+                                _this.$message.success('删除成功');
+                                _this.findMenuList();
+                            } else {
+                                _this.$message.error(res.msg);
+                            }
+                        }
+                    })
+                })
+            },
+            //提交添加和修改的表单
+            onSubmitForm() {
+                let _this = this;
+                if (_this.form.id == null || _this.form.id == '') {
+                    $.ajax({
+                        url: "/vli/vli/back/end/front/menu/add",
+                        dataType: 'json',//数据类型
+                        type: 'POST',//类型
+                        data: _this.form,//
+                        //请求成功
+                        success: function (res) {
+                            if (res.code === 1) {
+                                _this.$message.success(res.msg);
+                                _this.form = {};
+                                _this.dialogFormVisible = false;
+                                _this.findMenuList();
+                            } else {
+                                _this.$message.error(res.msg);
+                            }
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        url: "/vli/vli/back/end/front/menu/update",
+                        dataType: 'json',//数据类型
+                        type: 'POST',//类型
+                        data: _this.form,//
+                        //请求成功
+                        success: function (res) {
+                            if (res.code === 1) {
+                                _this.$message.success(res.msg);
+                                _this.form = {};
+                                _this.dialogFormVisible = false;
+                                _this.findMenuList();
+                            } else {
+                                _this.$message.error(res.msg);
+                            }
+                        }
+                    })
+                }
+            },
+            //关闭对话框 重载页面
+            closePopup() {
+                let _this = this;
+                _this.dialogFormVisible = false;
+                _this.findMenuList();
+            },
+            //查询菜单
+            findMenuList() {
+                let _this = this;
+                $.ajax({
+                    url: "/vli/vli/back/end/front/menu/list",
+                    type: "POST",
+                    dataType: "json",
+                    data: _this.params,
+                    success: function (res) {
+                        console.info(res);
+                        if (res.code === 1) {
+                            _this.tableData = res.data;
+                        } else {
+                            _this.$message.error(res.msg);
+                        }
+                    }
+                })
+            },
+            handleSizeChange(val) {
+                let _this = this;
+                _this.params.pageSize = val;
+                _this.findMenuList();
+            },
+            handleCurrentChange(val) {
+                let _this = this;
+                _this.params.page = val;
+                _this.findMenuList();
+            },
+        },
+        created: function () {
+            let _this = this;
+            _this.findMenuList();
+        }
+    })
+</script>

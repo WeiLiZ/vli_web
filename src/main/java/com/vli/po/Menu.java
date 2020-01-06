@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author ZL
@@ -19,5 +20,7 @@ public class Menu extends Currency {
     private String name;
 
     private String url;
+    @Column(name = "update_time")
+    private Date updateTime;
 
 }

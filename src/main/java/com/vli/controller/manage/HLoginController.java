@@ -15,6 +15,9 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 登陆管理类
+ */
 @Controller
 @RequestMapping("/vli/back/end")
 public class HLoginController {

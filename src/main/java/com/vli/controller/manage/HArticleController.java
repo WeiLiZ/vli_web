@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 文章管理类
+ */
 @RestController
 @RequestMapping("/vli/back/end/article")
 public class HArticleController {

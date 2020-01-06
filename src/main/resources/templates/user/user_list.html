@@ -203,7 +203,7 @@
                             id: row.id
                         },
                         success: function (res) {
-                            if (res.code == 1) {
+                            if (res.code === 1) {
                                 _this.$message.success('删除成功');
                                 _this.findUserList();
                             } else {

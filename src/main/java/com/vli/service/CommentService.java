@@ -18,6 +18,11 @@ public interface CommentService {
      */
     ResultModel subComment(CommentForm form);
 
+    /**
+     * 根据文章id查询评论
+     * @param articleId 文章id
+     * @return
+     */
     ModelPageInfo getListComment(Integer articleId);
 
     /**

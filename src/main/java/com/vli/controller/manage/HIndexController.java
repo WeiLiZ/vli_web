@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 页面跳转管理类
+ */
 @Controller
 @RequestMapping("/vli/back/end")
 public class HIndexController {

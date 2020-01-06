@@ -36,5 +36,10 @@ public interface HMenuService {
      */
     ResultModel update(HMenuParameter params);
 
+    /**
+     * 删除菜单
+     * @param params
+     * @return
+     */
     ResultModel delete(HMenuParameter params);
 }

@@ -34,8 +34,7 @@ public class CommentController {
         if (articleId==null){
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        ModelPageInfo modelPageInfo=commentService.getListComment(articleId);
-        return ResultModel.success(modelPageInfo);
+        return ResultModel.success(commentService.getListComment(articleId));
     }
 
     /**

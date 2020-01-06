@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 权限管理类
+ */
 @RestController
 @RequestMapping("/vli/back/end/role")
 public class HRoleController {

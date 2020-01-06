@@ -9,7 +9,6 @@ import com.vli.vo.ArticleVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * 文章接口
@@ -33,12 +32,12 @@ public class ArticleController {
 
     /**
      * 获取文章详情 根据id查询文章
-     * @param params
+     * @param params 查询条件
      * @return
      */
     @PostMapping("/findArticleById")
-    public ResultModel findArticleById(@RequestBody Map<String,Object> params){
-        Integer articleId = Integer.valueOf(params.get("articleId").toString());
+    public ResultModel findArticleById(@RequestBody Params params){
+        Integer articleId = Integer.valueOf(params.getMap().get("articleId").toString());
         if (null==articleId){
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
@@ -48,16 +47,16 @@ public class ArticleController {
 
     /**
      * 获取用户其他文章  根据用户id查询
-     * @param params
+     * @param params 查询条件
      * @return
      */
     @PostMapping("/getUserOtherArticle")
-    public ResultModel getUserOtherArticle(@RequestBody Map<String,Object> params){
-        Integer userId = Integer.valueOf(params.get("userId").toString());
+    public ResultModel getUserOtherArticle(@RequestBody Params params){
+        Integer userId = Integer.valueOf(params.getMap().get("userId").toString());
         if (userId==null){
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        Integer articleId = Integer.valueOf(params.get("articleId").toString());
+        Integer articleId = Integer.valueOf(params.getMap().get("articleId").toString());
         if (articleId==null){
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }

@@ -58,6 +58,11 @@ public class HMenuController {
         return hMenuService.update(params);
     }
 
+    /**
+     * 删除菜单
+     * @param params
+     * @return
+     */
     @PostMapping("/delete")
     public ResultModel delete(HMenuParameter params){
         return hMenuService.delete(params);

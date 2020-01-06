@@ -38,7 +38,7 @@ public class UserController {
     /**
      * 注册
      *
-     * @param userParameter
+     * @param userParameter 注册信息
      * @return
      */
     @PostMapping("/register")
@@ -52,14 +52,14 @@ public class UserController {
     /**
      * 登陆
      *
-     * @param request
-     * @param userParameter
+     * @param request 请求
+     * @param userParameter 登陆信息
      * @return
      */
     @PostMapping("/login")
     public ResultModel login(HttpServletRequest request, @RequestBody UserParameter userParameter) {
-        String Authorization = request.getHeader("Authorization");
-        if (Authorization == null || "".equals(Authorization)) {
+        String authorization = request.getHeader("Authorization");
+        if (authorization == null || "".equals(authorization)) {
             String userIP = IpUtil.getUserIP(request);
             try {
                 ResultModel resultModel = userService.login(userParameter.getUserName(), userParameter.getPassword(), userIP);
@@ -78,6 +78,7 @@ public class UserController {
 
     @Value("${slt.path-one}")
     private String sltPathOne;
+
     /**
      * 获取QQ信息
      * @param userParameter

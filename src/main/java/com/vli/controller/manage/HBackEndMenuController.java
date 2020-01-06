@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 后端菜单管理类
+ */
 @Controller
 @RequestMapping("/vli/back/end/menu")
 public class HBackEndMenuController {

@@ -2,11 +2,9 @@ package com.vli.controller.manage;
 
 import com.vli.from.HUserForm;
 import com.vli.parameter.HUserParameter;
-import com.vli.po.ModelPageInfo;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
 import com.vli.service.HUserService;
-import com.vli.vo.HUserVo;
 import com.vli.vo.UserVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,16 +22,17 @@ public class HUserController {
 
     /**
      * 查询
+     *
      * @return
      */
     @PostMapping("/list")
-    public ResultModel<ModelPageInfo<HUserVo>> list(HUserForm from) {
-        ModelPageInfo modelPageInfo = hUserService.list(from);
-        return ResultModel.success(ResultCode.SUCCESS, modelPageInfo);
+    public ResultModel list(HUserForm from) {
+        return ResultModel.success(ResultCode.SUCCESS, hUserService.list(from));
     }
 
     /**
      * 添加
+     *
      * @param request
      * @param params
      * @return
@@ -41,15 +40,20 @@ public class HUserController {
     @PostMapping("/add")
     public ResultModel add(HttpServletRequest request, HUserParameter params) {
         UserVo user = (UserVo) request.getSession().getAttribute("user");
-        if (user.getRoleId() == 3) {
+        if (user.getRoleId() == 3)
             return ResultModel.failure(ResultCode.PERMISSION_NO_ACCESS);
-        }
-        ResultModel resultModel = hUserService.add(params);
-        return resultModel;
+        if ("".equals(params.getUserName()))
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "用户名不能为空！");
+        if ("".equals(params.getPassword()))
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "密码不能为空！");
+        if ("".equals(params.getPhone()))
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "手机号不能为空！");
+        return hUserService.add(params);
     }
 
     /**
      * 修改
+     *
      * @param request
      * @param params
      * @return
@@ -57,15 +61,18 @@ public class HUserController {
     @PostMapping("/update")
     public ResultModel update(HttpServletRequest request, HUserParameter params) {
         UserVo user = (UserVo) request.getSession().getAttribute("user");
-        if (user.getRoleId() != 1) {
+        if (user.getRoleId() != 1)
             return ResultModel.failure(ResultCode.PERMISSION_NO_ACCESS);
-        }
-        ResultModel resultModel = hUserService.update(params);
-        return resultModel;
+        if ("".equals(params.getUserName()))
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "用户名不能为空！");
+        if ("".equals(params.getPhone()))
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "手机号不能为空！");
+        return hUserService.update(params);
     }
 
     /**
      * 删除
+     *
      * @param request
      * @param params
      * @return
@@ -73,10 +80,8 @@ public class HUserController {
     @PostMapping("/delete")
     public ResultModel delete(HttpServletRequest request, HUserParameter params) {
         UserVo user = (UserVo) request.getSession().getAttribute("user");
-        if (user.getRoleId() != 1) {
+        if (user.getRoleId() != 1)
             return ResultModel.failure(ResultCode.PERMISSION_NO_ACCESS);
-        }
-        ResultModel resultModel = hUserService.delete(params);
-        return resultModel;
+        return hUserService.delete(params);
     }
 }

@@ -17,6 +17,11 @@ public interface ArticleService {
      */
     ModelPageInfo<ArticleVo> list(Params params);
 
+    /**
+     * 获取文章详情 根据id查询文章
+     * @id 文章id
+     * @return
+     */
     ArticleVo findArticleById(Integer id);
 
     ModelPageInfo getUserOtherArticle(Integer userId, Integer articleId);

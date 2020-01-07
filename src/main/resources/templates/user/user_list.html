@@ -125,8 +125,8 @@
                 <el-radio v-model="form.sex" label="男">男</el-radio>
                 <el-radio v-model="form.sex" label="女">女</el-radio>
             </el-form-item>
-            <el-form-item label="年龄" label-width="120px">
-                <el-input v-model="form.age" auto-complete="off"></el-input>
+            <el-form-item label-width="120px" label="年龄">
+                <el-input type="age" v-model.number="form.age" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="角色" label-width="120px">
                 <el-select v-model="form.roleId" clearable placeholder="请选择">
@@ -137,6 +137,11 @@
                             :value="v.id">
                     </el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="头像" label-width="120px">
+                <img v-show="form.healPortrait" :src="form.healPortrait" class="avatar" alt="">
+                <input @change="fileFn" type="file"
+                       accept="image/png, image/jpeg">
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -159,7 +164,8 @@
                 sex: "",
                 age: "",
                 roleId: "",
-                password: ""
+                password: "",
+                healPortrait: ""
             },
             dialogFormVisible: false,
             popupTitle: "",
@@ -184,6 +190,7 @@
                 let _this = this;
                 _this.dialogFormVisible = true;
                 _this.form = row;
+                _this.form.password = 12312312312312312312312312312312;
                 _this.popupTitle = "修改";
                 _this.disabledStatus = true;
             },
@@ -267,9 +274,9 @@
                     url: "/vli/vli/back/end/user/list",
                     type: "POST",
                     dataType: "json",
-                    data:_this.params,
+                    data: _this.params,
                     success: function (res) {
-                        if (res.code == 1) {
+                        if (res.code === 1) {
                             _this.tableData = res.data;
                         } else {
                             _this.$message.error(res.msg);
@@ -277,6 +284,7 @@
                     }
                 })
             },
+            //查询权限
             findRoleList() {
                 let _this = this;
                 $.ajax({
@@ -284,7 +292,7 @@
                     type: "POST",
                     dataType: "json",
                     success: function (res) {
-                        if (res.code == 1) {
+                        if (res.code === 1) {
                             _this.roles = res.data;
                         } else {
                             _this.$message.error(res.msg);
@@ -292,16 +300,49 @@
                     }
                 })
             },
+            //更改条数
             handleSizeChange(val) {
                 let _this = this;
                 _this.params.pageSize = val;
                 _this.findUserList();
             },
+            //更改页数
             handleCurrentChange(val) {
                 let _this = this;
                 _this.params.page = val;
                 _this.findUserList();
             },
+            //头像上传
+            fileFn(file) {
+                let _this = this;
+                var formData = new FormData();
+                var files = file.srcElement.files;
+                if (files.length === 0) {
+                    alert("请选择文件后再上传！");
+                    return;
+                }
+                for (var i = 0; i < files.length; i++) {
+                    formData.append("fileupload", files[i]);
+                    $.ajax({
+                        url: "https://img.yyhy.me/upload.php?type=Sohu",//Sina,Baidu,Sougou,Sohu,OoXx,SMMS,Vim,Mixtape
+                        type: "post",
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        async: true,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === "0") {
+                                _this.form.healPortrait = data.msg;
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            console.error(XMLHttpRequest + textStatus + errorThrown);
+                        }
+                    })
+                }
+            }
         },
         created: function () {
             let _this = this;
@@ -310,3 +351,22 @@
         }
     })
 </script>
+<style>
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+</style>

@@ -13,7 +13,7 @@ Configuration:
       - name: project.name
         value: opendoc
       - name: log.pattern
-        value: "%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} :} %m%n"
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%highlight{%5p} ${PID:-} [%15.15t]  %highlight{%-30.30C{1.}} : %m%n"
   Appenders:
     Console:  #输出到控制台
       name: CONSOLE

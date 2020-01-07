@@ -7,7 +7,6 @@ import com.vli.po.ResultModel;
 import com.vli.service.HArticleService;
 import com.vli.vo.HArticleVo;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

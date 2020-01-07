@@ -120,10 +120,12 @@
                 <el-input v-model="form.typeId" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="内容" label-width="120px">
-                <el-input v-model="form.content" auto-complete="off"></el-input>
+                <el-input type="textarea" v-model="form.content"></el-input>
             </el-form-item>
-            <el-form-item label="图片地址" label-width="120px">
-                <el-input v-model="form.homePic" auto-complete="off"></el-input>
+            <el-form-item label="图片" label-width="120px">
+                <img v-show="form.homePic" :src="form.homePic" class="avatar" alt="">
+                <input  @change="fileFn" type="file"
+                        accept="image/png, image/jpeg">
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -154,7 +156,7 @@
             params: {
                 page: 1,
                 pageSize: 10,
-            }
+            },
         },
         methods: {
             //点击打开添加框
@@ -207,7 +209,6 @@
                     success: function (res) {
                         if (res.code == 1) {
                             _this.tableData = res.data;
-                            console.info(_this.tableData)
                         } else {
                             _this.$message.error(res.msg);
                         }
@@ -261,16 +262,49 @@
                 _this.dialogFormVisible = false;
                 _this.findArticle();
             },
+            //更改条数
             handleSizeChange(val) {
                 let _this = this;
                 _this.params.pageSize = val;
                 _this.findArticle();
             },
+            //更改页数
             handleCurrentChange(val) {
                 let _this = this;
                 _this.params.page = val;
                 _this.findArticle();
             },
+            //图片上传
+            fileFn(file) {
+                let _this=this;
+                var formData = new FormData();
+                var files = file.srcElement.files;
+                if (files.length === 0) {
+                    alert("请选择文件后再上传！");
+                    return;
+                }
+                for (var i = 0; i < files.length; i++) {
+                    formData.append("fileupload", files[i]);
+                    $.ajax({
+                        url: "https://img.yyhy.me/upload.php?type=Sohu",//Sina,Baidu,Sougou,Sohu,OoXx,SMMS,Vim,Mixtape
+                        type: "post",
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        async: true,
+                        dataType: "json",
+                        success: function (data) {
+                            if(data.code=="0"){
+                                _this.form.homePic=data.msg;
+                            }
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            console.error(XMLHttpRequest + textStatus + errorThrown);
+                        }
+                    })
+                }
+            }
         },
         created: function () {
             let _this = this;
@@ -278,3 +312,22 @@
         }
     })
 </script>
+<style>
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+</style>

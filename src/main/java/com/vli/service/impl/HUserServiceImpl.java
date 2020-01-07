@@ -70,7 +70,7 @@ public class HUserServiceImpl implements HUserService {
             convert.setUpdateTime(new Date());
             convert.setCreateTime(new Date());
             convert.setPassword(MD5.getMD5(convert.getPassword()));
-            userMapper.insert(convert);
+            userMapper.insertSelective(convert);
             return ResultModel.success();
         }
         return ResultModel.failure(ResultCode.USER_HAS_USERNAME_OR_PHONE);

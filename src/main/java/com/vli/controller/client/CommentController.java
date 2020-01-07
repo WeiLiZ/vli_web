@@ -1,7 +1,7 @@
 package com.vli.controller.client;
 
 import com.vli.from.CommentForm;
-import com.vli.po.ModelPageInfo;
+import com.vli.from.Params;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
 import com.vli.service.CommentService;
@@ -25,12 +25,12 @@ public class CommentController {
 
     /**
      * 查询评论根据文章id
-     * @param map 存放的参数【articleId】
+     * @param params 存放的参数【articleId】
      * @return
      */
     @PostMapping("/getListComment")
-    public ResultModel getListComment(@RequestBody Map<String, Object> map) {
-        Integer articleId = Integer.valueOf(map.get("articleId").toString());
+    public ResultModel getListComment(@RequestBody Params params) {
+        Integer articleId = Integer.valueOf(params.getMap().get("articleId").toString());
         if (articleId==null){
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }

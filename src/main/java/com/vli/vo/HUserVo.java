@@ -13,7 +13,6 @@ public class HUserVo {
     private Date createTime;
     private Boolean deleteStatus;
     private String userName;
-    private String password;
     private String phone;
     private String sex;
     private Integer age;

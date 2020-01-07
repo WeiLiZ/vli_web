@@ -56,7 +56,7 @@ public class HArticleServiceImpl implements HArticleService {
         convert.setDeleteStatus(Boolean.FALSE);
         UserVo user = (UserVo) request.getSession().getAttribute("user");
         convert.setUserId(user.getId());
-        articleMapper.insert(convert);
+        articleMapper.insertSelective(convert);
     }
 
     @Override

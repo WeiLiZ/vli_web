@@ -35,7 +35,7 @@ public class HLoginController {
     @ResponseBody
     public ResultModel login(HttpServletRequest request, UserParameter userParameter)  {
         UserVo user = (UserVo) request.getSession().getAttribute("user");
-        if (user == null || user.equals("")) {
+        if (user == null) {
             String userIP = IpUtil.getUserIP(request);
                 ResultModel resultModel = userService.login(userParameter.getUserName(), userParameter.getPassword(), userIP);
                 if (resultModel.getData()!=null){

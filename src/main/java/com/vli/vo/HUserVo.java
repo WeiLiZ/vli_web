@@ -19,6 +19,8 @@ public class HUserVo {
     private Integer roleId;
     private String  roleName;
     private String healPortrait;
+    private Integer qqNumber;
+    private String mailbox;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }

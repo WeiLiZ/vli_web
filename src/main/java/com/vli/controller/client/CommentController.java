@@ -5,9 +5,11 @@ import com.vli.from.Params;
 import com.vli.po.ResultCode;
 import com.vli.po.ResultModel;
 import com.vli.service.CommentService;
+import com.vli.vo.UserVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -44,8 +46,8 @@ public class CommentController {
      * @return
      */
     @PostMapping("/subComment")
-    public ResultModel subComment(@RequestBody CommentForm form) {
-        if ("".equals(form.getMail())||null==form.getMail()) {
+    public ResultModel subComment(HttpServletRequest request, @RequestBody CommentForm form) {
+        if ("".equals(form.getMailbox())||null==form.getMailbox()) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
         if ("".equals(form.getNickName())||null==form.getNickName()) {
@@ -60,8 +62,8 @@ public class CommentController {
         if ("".equals(form.getContent())||null==form.getContent()) {
             return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         }
-        ResultModel resultModel = commentService.subComment(form);
-        return ResultModel.success(resultModel);
+        commentService.subComment(request,form);
+        return ResultModel.success();
     }
 
 }

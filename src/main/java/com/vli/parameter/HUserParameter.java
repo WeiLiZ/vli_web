@@ -11,6 +11,10 @@ public class HUserParameter {
 
     private String phone;//手机号
 
+    private Integer qqNumber;//qq号
+
+    private String mailbox;//邮箱
+
     private String sex;//性别
 
     private Integer age;//年龄

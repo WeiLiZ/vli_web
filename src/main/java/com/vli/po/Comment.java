@@ -22,12 +22,18 @@ public class Comment extends Currency {
     @Column(name = "qq_number")
     private String qqNumber;
 
-    @Column(name = "mail")
-    private String mail;
+    @Column(name = "mailbox")
+    private String mailbox;
 
     @Column(name = "nick_name")
     private String nickName;
 
     @Column(name = "head_portrait")
     private String headPortrait;
+
+    @Column(name = "identity")
+    private Integer identity;
+
+    @Column(name = "ip_address")
+    private String ipAddress;
 }

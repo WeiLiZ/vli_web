@@ -43,11 +43,15 @@ public class HUserController {
         if (user.getRoleId() == 3)
             return ResultModel.failure(ResultCode.PERMISSION_NO_ACCESS);
         if ("".equals(params.getUserName()))
-            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "用户名不能为空！");
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         if ("".equals(params.getPassword()))
-            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "密码不能为空！");
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         if ("".equals(params.getPhone()))
-            return ResultModel.failure(ResultCode.PARAM_IS_BLANK, "手机号不能为空！");
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
+        if (params.getQqNumber()==null)
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
+        if ("".equals(params.getMailbox()))
+            return ResultModel.failure(ResultCode.PARAM_IS_BLANK);
         return hUserService.add(params);
     }
 

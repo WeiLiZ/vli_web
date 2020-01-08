@@ -15,11 +15,13 @@ public class CommentForm {
 
     private String nickName;
 
-    private String mail;
+    private String mailbox;
 
     private String qqNumber;
 
     private String headPortrait;
 
     private String content;
+
+    private Integer userId;
 }
